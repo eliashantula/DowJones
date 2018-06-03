@@ -18,9 +18,12 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Modal, ModalHeader, ModalBody, ModalFooter
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "reactstrap";
-import Notes from './Notes'
+import Notes from "./Notes";
 //Basic Article Component
 class Article extends Component {
   constructor(props) {
@@ -94,7 +97,6 @@ class Article extends Component {
       onSubmit,
       notes
     } = this.props;
-    
 
     return (
       <Col xs="6" style={{ padding: "10px" }}>
@@ -104,37 +106,53 @@ class Article extends Component {
           <CardTitle> {headline}</CardTitle>
           <CardText>{summary}</CardText>
 
-          <Button color="white" size="sm" style={{marginRight: "auto"}}>
+          <Button color="white" size="sm" style={{ marginRight: "auto" }}>
             <a style={{ color: "black" }} href={fullArticle} target="_blank">
               Read Article
             </a>
           </Button>
-          <Button style={{marginRight: "auto"}}value={index} onClick={onClick}  color="black" size="sm">
+          <Button
+            style={{ marginRight: "auto" }}
+            value={index}
+            onClick={onClick}
+            color="black"
+            size="sm"
+          >
             Delete Article
           </Button>
-        
-          <Notes notes={notes}/>
-          
-      
-          <ButtonDropdown style={{marginRight: "auto", display: "block"}} toggle={this.toggle} isOpen={this.state.dropdownOpen}>
-            <DropdownToggle className="center"caret color="black" size="sm">
+
+          <Notes notes={notes} />
+
+          <ButtonDropdown
+            style={{ marginRight: "auto", display: "block" }}
+            toggle={this.toggle}
+            isOpen={this.state.dropdownOpen}
+          >
+            <DropdownToggle className="center" caret color="black" size="sm">
               Add Notes
             </DropdownToggle>
 
             <DropdownMenu>
               <DropdownItem toggle={false}>
-              <Form  onSubmit={onSubmit}>
+                <Form onSubmit={onSubmit}>
+                  <Label for="note" className="mr-sm-2">
+                    Add Note
+                  </Label>
+                  <Input
+                    type="textarea"
+                    name="textarea"
+                    id={index}
+                    placeholder="typehere..."
+                    value={this.state.value}
+                  />
 
-
-          <Label for="note" className="mr-sm-2">Add Note</Label>
-          <Input type="textarea" name="textarea" id={index} placeholder="typehere..." value={this.state.value}/>
-     
-        <Button   value="submit" type="submit" size="sm" color="black">Save</Button>
-        <Button   onClick={this.toggle}   size="sm" color="black">Close</Button>
-
-        </Form>
-
-
+                  <Button value="submit" type="submit" size="sm" color="black">
+                    Save
+                  </Button>
+                  <Button onClick={this.toggle} size="sm" color="black">
+                    Close
+                  </Button>
+                </Form>
               </DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>

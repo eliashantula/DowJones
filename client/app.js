@@ -69,13 +69,17 @@ class App extends Component {
 
   addNotes(e) {
     e.preventDefault();
-    let today = new Date().toISOString().slice(0, 10)
+    let today = new Date().toISOString().slice(0, 10);
     let articlesupdated = [...this.state.articles];
 
     if (articlesupdated[e.target.textarea.id].notes == undefined) {
-      articlesupdated[e.target.textarea.id].notes = [ e.target.textarea.value + " "];
+      articlesupdated[e.target.textarea.id].notes = [
+        e.target.textarea.value + " "
+      ];
     } else {
-      articlesupdated[e.target.textarea.id].notes.push(e.target.textarea.value + " ");
+      articlesupdated[e.target.textarea.id].notes.push(
+        e.target.textarea.value + " "
+      );
     }
     this.setState({
       articles: articlesupdated
