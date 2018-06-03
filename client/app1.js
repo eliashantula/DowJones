@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from 'reactstrap';
 import {
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
   CarouselCaption
-} from "reactstrap";
+} from 'reactstrap'
 
 //import any other components here
 import HelloWorld from "../src/helloworld";
@@ -20,6 +20,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+   
+
     //default state
     //this keeps track of "live" data on the browser
     this.state = {
@@ -27,9 +29,8 @@ class App extends Component {
       error: null,
       loaded: false,
       showSummaries: false
+
     };
-    this.deleteArticle = this.deleteArticle.bind(this);
-    this.addNotes = this.addNotes.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,8 @@ class App extends Component {
         return data.json();
       })
       .then(data => {
+        console.log(JSON.stringify(data));
+
         //send data to our state
         //which will trigger render()
         this.setState({
@@ -57,29 +60,10 @@ class App extends Component {
   }
 
   //click handler for button
-  deleteArticle(e) {
-    e.preventDefault();
-    console.log(e.target.value);
-    let altered = [...this.state.articles];
-    altered.splice(e.target.value, 1);
-    this.setState({
-      articles: altered
-    });
-  }
-
-  addNotes(e) {
-    e.preventDefault();
-    let today = new Date().toISOString().slice(0, 10)
-    let articlesupdated = [...this.state.articles];
-
-    if (articlesupdated[e.target.textarea.id].notes == undefined) {
-      articlesupdated[e.target.textarea.id].notes = [ e.target.textarea.value + " "];
-    } else {
-      articlesupdated[e.target.textarea.id].notes.push(e.target.textarea.value + " ");
-    }
-    this.setState({
-      articles: articlesupdated
-    });
+  toggleSummaries() {
+    this.setState((prevState, props) => ({
+      showSummaries: !prevState.showSummaries
+    }));
   }
 
   render() {
@@ -98,7 +82,20 @@ class App extends Component {
       return <div>Loading...</div>;
     } else {
       //render articles
+      let articleJSX = [];
 
+      articles.map((article, idx) => {
+       
+        articleJSX.push(
+          <Article
+            key={idx}
+            headline={article.headline}
+            summary={article.summary}
+            image={article.image}
+            
+          />
+        );
+      });
       // code above is equal to this:
       // for (let i = 0; i < articles.length; i++) {
       //   articleJSX.push(
@@ -107,32 +104,15 @@ class App extends Component {
       // }
 
       return (
-        <div style={{ backgroundColor: "black" }}>
-          <div style={{ paddingBottom: "25px" }}>
-            <HelloWorld />
-          </div>
-          <div style={{ paddingTop: "10%" }}>
-            <Container style={{ padding: "5px" }}>
-              <Row>
-                {articles.map((article, idx) => {
-                  return (
-                    <Article
-                      key={idx}
-                      index={idx}
-                      headline={article.headline}
-                      summary={article.summary}
-                      image={article.image}
-                      fullArticle={article.share_link}
-                      showSummary={showSummaries}
-                      onClick={this.deleteArticle}
-                      onSubmit={this.addNotes}
-                      notes={article.notes}
-                    />
-                  );
-                })}
-              </Row>
-            </Container>
-          </div>
+        <div style={{backgroundColor: "white"}}>
+         
+          <HelloWorld />
+           <Container>
+           
+         
+          {articleJSX}
+     
+          </Container>
         </div>
       );
     }

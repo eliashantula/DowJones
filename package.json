@@ -8,11 +8,14 @@
     "start": "webpack --config webpack.config.server.js"
   },
   "dependencies": {
+    "bootstrap": "^4.1.1",
     "copy-webpack-plugin": "^4.5.1",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.4.0",
+    "reactstrap": "^6.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
